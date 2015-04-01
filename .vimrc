@@ -143,7 +143,7 @@ set guioptions-=T
 ""Automatically reload .vimrc when saved
 "au BufWritePost ~/.vimrc :source ~/.vimrc
 ""make it easy to reaload vimrc
-nmap ,l :source ~/_vimrc<cr>
+nmap ,l :source ~/.vimrc<cr>
 
 ""flash opposite bracket on insertion
 set showmatch
@@ -177,9 +177,9 @@ set viminfo='100,f1
 ""let MRU_Max_Entries=20
 
 
-"nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
+nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
 
-nmap ,v :tabe ~/_vimrc <cr>
+nmap ,v :tabe ~/.vimrc <cr>
 set wrap
 
 
