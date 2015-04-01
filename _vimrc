@@ -1,3 +1,4 @@
+" Vim mode, non vi compatible
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -63,14 +64,13 @@ colorscheme leo
 "colorscheme solarized
 "let g:solarized_italic=0
 
+
 "set statusline
 " Begin .vimrc
 "nnoremap <space> za
 "nmap ,p :nnoremap <space> za<cr>:set foldmethod=syntax<cr>
-set ignorecase
+"set ignorecase
 set smartcase
-" Vim mode, non vi compatible
-set nocompatible
 
 se cursorline      " highlight current line
 "hi cursorline guibg=#333333   " highlight bg color of current line
@@ -132,7 +132,7 @@ set guioptions-=r
 set guioptions-=T
 
 ""keep the working directory with the open buffer
-autocmd BufEnter * lcd %:p:h
+"autocmd BufEnter * lcd %:p:h
 
 ""Automatically reload .vimrc when saved
 "au BufWritePost ~/.vimrc :source ~/.vimrc
@@ -170,29 +170,6 @@ set viminfo='100,f1
 ""let MRU_File=$HOME.'/.vim/mru_file'
 ""let MRU_Max_Entries=20
 
-"" If buffer modified, update any 'Last modified: ' in the first 20 lines.
-"" 'Last modified: ' can have up to 10 characters before (they are retained).
-"" Restores position using s mark.
-"function! LastModified()
-"  if &modified
-"    normal ms
-"    let n = min([20, line("$")])
-"    exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
-"          \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
-"    normal `s
-"  endif
-"endfun
-
-"autocmd BufWritePre * call LastModified()
-
-
-"autocmd bufnewfile *.sv so /home/gkuhn/.vim/v_header.txt
-""autocmd bufnewfile *.sv exe "1," . 10 . "g/FILENAME :.*/s//FILENAME : " .expand("%")
-""autocmd bufnewfile *.sv exe "1," . 10 . "g/CREATED :.*/s//CREATED : " strftime('%a %b %d, %Y  %I:%M%p')
-""autocmd bufnewfile *.sv exe "1," . 12 . "g/CREATED :.*/s//CREATED : " .strftime("%d-%m-%Y")
-""autocmd Bufwritepre,filewritepre *.sv execute "normal ma"
-""autocmd Bufwritepre,filewritepre *.sv exe "8," . 28 . "g/LAST MODIFIED :.*/s/LAST MODIFIED :.*/LAST MODIFIED : " .strftime("%c")
-""autocmd bufwritepost,filewritepost *.sv execute "normal `a"
 
 "nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
 
@@ -340,3 +317,6 @@ set errorformat+=%.%#UVM_FATAL\ %f(%l)\ %m
 "}  
 
 
+"get average, min max, count in vim
+vmap <expr>  ++  VMATH_YankAndAnalyse()
+nmap         ++  vip++
