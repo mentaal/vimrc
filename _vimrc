@@ -58,7 +58,7 @@ filetype plugin indent on    " required
 syntax on
 filetype plugin indent on
 "colorscheme Benokai
-"colorscheme leo
+colorscheme leo
 "set background=light
 "colorscheme solarized
 "let g:solarized_italic=0
