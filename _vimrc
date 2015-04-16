@@ -3,8 +3,13 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/vimfiles/bundle/Vundle.vim
-let path='~/vimfiles/bundle'
+if has("gui_win32")
+    set rtp+=~/vimfiles/bundle/Vundle.vim
+    let path='~/vimfiles/bundle'
+else
+    set rtp+=~/.vim/bundle/Vundle.vim
+    let path='~/.vim/bundle'
+endif
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -17,6 +22,16 @@ Plugin 'flazz/vim-colorschemes'
 
 "ctrlp
 Plugin 'kien/ctrlp.vim'
+
+"supertab
+Plugin 'ervandew/supertab'
+
+"Python Mode
+Plugin 'klen/mython-mode'
+
+"Hexmode
+Plugin 'fidian/hexmode'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -52,8 +67,6 @@ filetype plugin indent on    " required
 
 
 
-
-
 "use pathothen
 "execute pathogen#infect()
 syntax on
@@ -69,7 +82,7 @@ colorscheme leo
 " Begin .vimrc
 "nnoremap <space> za
 "nmap ,p :nnoremap <space> za<cr>:set foldmethod=syntax<cr>
-"set ignorecase
+set ignorecase
 set smartcase
 
 se cursorline      " highlight current line
@@ -130,6 +143,7 @@ set guioptions-=L
 set guioptions-=r
 ""Turn off the menu toolbar
 set guioptions-=T
+set guioptions-=m
 
 ""keep the working directory with the open buffer
 "autocmd BufEnter * lcd %:p:h
@@ -243,34 +257,19 @@ map <A-8> 8gt
 map <A-9> 9gt
 map <A-0> 10g
 
-
-"" Tab headings
-"function!  GuiTabLabel()
-"    let label = ''
-"    let bufnrlist = tabpagebuflist(v:lnum)
-"
-"    " Add '+' if one of the buffers in the tab page is modified
-"    for bufnr in bufnrlist
-"        if getbufvar(bufnr, "&modified")
-"            let label = '+'
-"            break
-"        endif
-"    endfor
-"
-"    " Append the number of windows in the tab page if more than one
-"    let wincount = tabpagewinnr(v:lnum, '$')
-"    if wincount > 1
-"        let label .= wincount
-"    endif
-"    if label != ''
-"        let label .= ' '
-"    endif
-"
-"    " Append the buffer name (not full path)
-"    return label . "%t"
-"endfunction
-"
 "set guitablabel=%!GuiTabLabel()
+
+
+"nmap <leader>co :!soscmd co %<cr>
+"nmap <leader>ci :!soscmd ci %<cr>
+"nmap <leader>te :!gnome-terminal &<cr>
+"nmap <leader>w :!chmod +w %<cr>
+"nmap <leader>r :!chmod -w %<cr>
+nmap <leader>p :let @+ = expand("%:p:h")<cr>
+nmap <leader>o :lcd %:p:h<cr>
+
+"easy search and replace of selected text
+vnoremap <C-r> <Esc>:%s/<C-r>*//gc<left><left><left>
 
 
 "easy search and replace of selected text
@@ -291,6 +290,9 @@ endfunction
 
 ""make tags work properly
 "set tags=tags;/
+set tags=./tags;/
+nmap ,t :silent !ctags -R --languages=c,c++,python<CR>
+
 
 "keep cursor in the middle of the screen for searches
 ":nnoremap n nzz
@@ -320,3 +322,74 @@ set errorformat+=%.%#UVM_FATAL\ %f(%l)\ %m
 "get average, min max, count in vim
 vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
+
+
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
+if has("gui_win32")
+    let $TMP="c:/temp"
+endif
+
+"start a command prompt
+if has("gui_win32")
+    nmap <leader>te :silent !start<CR>
+else
+    nmap <leader>te :silent !gnome-terminal &<cr>
+endif
+
+
+""handle hex files
+""nnoremap <C-H> :Hexmode<CR>
+""inoremap <C-H> <Esc>:Hexmode<CR>
+""vnoremap <C-H> :<C-U>Hexmode<CR>
+"
+"" ex command for toggling hex mode - define mapping if desired
+"command -bar Hexmode call ToggleHex()
+"
+"" helper function to toggle hex mode
+"function ToggleHex()
+"  " hex mode should be considered a read-only operation
+"  " save values for modified and read-only for restoration later,
+"  " and clear the read-only flag for now
+"  let l:modified=&mod
+"  let l:oldreadonly=&readonly
+"  let &readonly=0
+"  let l:oldmodifiable=&modifiable
+"  let &modifiable=1
+"  if !exists("b:editHex") || !b:editHex
+"    " save old options
+"    let b:oldft=&ft
+"    let b:oldbin=&bin
+"    " set new options
+"    setlocal binary " make sure it overrides any textwidth, etc.
+"    silent :e " this will reload the file without trickeries 
+"              "(DOS line endings will be shown entirely )
+"    let &ft="xxd"
+"    " set status
+"    let b:editHex=1
+"    " switch to hex editor
+"    %!xxd
+"  else
+"    " restore old options
+"    let &ft=b:oldft
+"    if !b:oldbin
+"      setlocal nobinary
+"    endif
+"    " set status
+"    let b:editHex=0
+"    " return to normal editing
+"    %!xxd -r
+"  endif
+"  " restore values for modified and read only state
+"  let &mod=l:modified
+"  let &readonly=l:oldreadonly
+"  let &modifiable=l:oldmodifiable
+"endfunction
