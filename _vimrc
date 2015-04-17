@@ -27,7 +27,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 
 "Python Mode
-Plugin 'klen/mython-mode'
+Plugin 'klen/python-mode'
+let g:pymode_lint_write = 0       "turn off running pylint on file save
+"nnoremap <leader>p :PyLint<cr>    "pressing ,p will run plyint on current buffer
+"turn off obnoxious red column
+let g:pymode_options_colorcolumn = 0
+"turn off annoying errors in margin
+let g:pymode_lint_signs = 0
 
 "Hexmode
 Plugin 'fidian/hexmode'
@@ -72,7 +78,7 @@ filetype plugin indent on    " required
 syntax on
 filetype plugin indent on
 "colorscheme Benokai
-colorscheme leo
+"colorscheme leo
 "set background=light
 "colorscheme solarized
 "let g:solarized_italic=0
@@ -393,3 +399,8 @@ endif
 "  let &readonly=l:oldreadonly
 "  let &modifiable=l:oldmodifiable
 "endfunction
+"
+colo leo
+"turn off annoying bell and visual flash on error
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
