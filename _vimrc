@@ -154,7 +154,14 @@ set guioptions-=m
 ""Automatically reload .vimrc when saved
 "au BufWritePost ~/.vimrc :source ~/.vimrc
 ""make it easy to reaload vimrc
-nmap ,l :source ~/_vimrc<cr>
+if has("gui_running")
+  if has("gui_gtk2")
+    nmap ,l :source ~/.vimrc<cr>
+  elseif has("gui_win32")
+    nmap ,l :source ~/_vimrc<cr>
+  endif
+endif
+
 
 ""flash opposite bracket on insertion
 set showmatch
@@ -329,7 +336,7 @@ nmap         ++  vip++
 
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
+    set guifont=Monospace\ 12
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
