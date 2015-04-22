@@ -197,7 +197,14 @@ set viminfo='100,f1
 
 "nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
 
-nmap ,v :tabe ~/_vimrc <cr>
+if has("gui_running")
+  if has("gui_gtk2")
+    nmap ,v :tabe ~/.vimrc <cr>
+  elseif has("gui_win32")
+    nmap ,v :tabe ~/_vimrc <cr>
+  endif
+endif
+
 set wrap
 
 
