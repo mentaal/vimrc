@@ -27,13 +27,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 
 "Python Mode
-Plugin 'klen/python-mode'
-let g:pymode_lint_write = 0       "turn off running pylint on file save
-"nnoremap <leader>p :PyLint<cr>    "pressing ,p will run plyint on current buffer
-"turn off obnoxious red column
-let g:pymode_options_colorcolumn = 0
-"turn off annoying errors in margin
-let g:pymode_lint_signs = 0
+"Plugin 'klen/python-mode'
+"let g:pymode_lint_write = 0       "turn off running pylint on file save
+""nnoremap <leader>p :PyLint<cr>    "pressing ,p will run plyint on current buffer
+""turn off obnoxious red column
+"let g:pymode_options_colorcolumn = 0
+""turn off annoying errors in margin
+"let g:pymode_lint_signs = 0
 
 "Hexmode
 Plugin 'fidian/hexmode'
