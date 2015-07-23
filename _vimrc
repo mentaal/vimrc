@@ -1,14 +1,17 @@
 " Vim mode, non vi compatible
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
+let &shellslash=0
+au FileType vundle setlocal noshellslash
 " set the runtime path to include Vundle and initialize
 if has("gui_win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
-    let path='~/vimfiles/bundle'
+    "let path='~/vimfiles/bundle'
+    call vundle#rc('$HOME/vimfiles/bundle/')
 else
     set rtp+=~/.vim/bundle/Vundle.vim
     let path='~/.vim/bundle'
+    call vundle#rc()
 endif
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
