@@ -195,7 +195,7 @@ set viminfo='100,f1
 ""let MRU_Max_Entries=20
 
 
-"nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
+nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -277,11 +277,15 @@ map <A-0> 10g
 "set guitablabel=%!GuiTabLabel()
 
 
-"nmap <leader>co :!soscmd co %<cr>
-"nmap <leader>ci :!soscmd ci %<cr>
-"nmap <leader>te :!gnome-terminal &<cr>
-"nmap <leader>w :!chmod +w %<cr>
-"nmap <leader>r :!chmod -w %<cr>
+if has("gui_running")
+  if has("gui_gtk2")
+    nmap <leader>co :!soscmd co %<cr>
+    nmap <leader>ci :!soscmd ci %<cr>
+    nmap <leader>te :!gnome-terminal &<cr>
+    nmap <leader>w :!chmod +w %<cr>
+    nmap <leader>r :!chmod -w %<cr>
+  endif
+endif
 nmap <leader>p :let @+ = expand("%:p:h")<cr>
 nmap <leader>o :lcd %:p:h<cr>
 
@@ -308,7 +312,8 @@ endfunction
 ""make tags work properly
 "set tags=tags;/
 set tags=./tags;/
-nmap ,t :silent !ctags -R --languages=c,c++,python<CR>
+nmap ,tc :silent !ctags -R --languages=c,c++<CR>
+nmap ,tp :silent !ctags -R --languages=python<CR>
 
 
 "keep cursor in the middle of the screen for searches
