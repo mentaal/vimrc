@@ -374,3 +374,10 @@ colo leo
 "turn off annoying bell and visual flash on error
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
+
+"jump to beginning of function but with the curly braces not necessarily
+"starting in first column
+:map [[ ?{<CR>w99[{
+:map ][ /}<CR>b99]}
+:map ]] j0[[%/{<CR>
+:map [] k$][%?}<CR>
