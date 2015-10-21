@@ -132,7 +132,7 @@ set wildmode=list:longest,full " command <Tab> completion, list matches, then lo
 set number
 
 set shiftwidth=4
-"set textwidth=76
+set textwidth=0
 " Highlight matched paranthesis
 "let loaded_matchparen = 1
 
@@ -381,3 +381,11 @@ autocmd GUIEnter * set visualbell t_vb=
 :map ][ /}<CR>b99]}
 :map ]] j0[[%/{<CR>
 :map [] k$][%?}<CR>
+
+"allow ctrlp to follow symlinks"
+let g:ctrlp_follow_symlinks=1
+"default to mru list 
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+"wrap around for searches
+:set wrapscan
