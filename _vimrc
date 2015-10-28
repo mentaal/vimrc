@@ -41,6 +41,9 @@ Plugin 'ervandew/supertab'
 "Hexmode
 Plugin 'fidian/hexmode'
 
+"SystemVerilog syntax plugin
+Plugin 'cazador481/vim-systemverilog'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
