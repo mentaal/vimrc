@@ -26,8 +26,45 @@ Plugin 'flazz/vim-colorschemes'
 "ctrlp
 Plugin 'kien/ctrlp.vim'
 
+"Syntastic
+Plugin 'scrooloose/syntastic'
+
 "supertab
 Plugin 'ervandew/supertab'
+
+"taglist
+Plugin 'vim-scripts/taglist.vim'
+
+"cscope
+Plugin 'vim-scripts/cscope.vim'
+"Below is the minimum key mappings.
+
+"get python syntax highlighting
+Plugin 'hdima/python-syntax'
+"use all features of the above plugin
+let python_highlight_all = 1
+
+    nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
+    nnoremap <leader>l :call ToggleLocationList()<CR>
+
+"Some optional key mappings to search directly.
+
+    " s: Find this C symbol
+    nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
+    " g: Find this definition
+    nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
+    " d: Find functions called by this function
+    nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
+    " c: Find functions calling this function
+    nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
+    " t: Find this text string
+    nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
+    " e: Find this egrep pattern
+    nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
+    " f: Find this file
+    nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
+    " i: Find files #including this file
+    nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
 
 "Python Mode
 "Plugin 'klen/python-mode'
@@ -318,6 +355,8 @@ set tags=./tags;/
 nmap ,tc :silent !ctags -R --languages=c,c++<CR>
 nmap ,tp :silent !ctags -R --languages=python<CR>
 
+nmap ,, :nohls<CR>
+
 
 "keep cursor in the middle of the screen for searches
 ":nnoremap n nzz
@@ -377,7 +416,14 @@ autocmd GUIEnter * set visualbell t_vb=
 
 "jump to beginning of function but with the curly braces not necessarily
 "starting in first column
-:map [[ ?{<CR>w99[{
-:map ][ /}<CR>b99]}
-:map ]] j0[[%/{<CR>
-:map [] k$][%?}<CR>
+":map [[ ?{<CR>w99[{
+":map ][ /}<CR>b99]}
+":map ]] j0[[%/{<CR>
+":map [] k$][%?}<CR>
+
+"search for the visually selected text
+vnoremap g/ y/<C-R>"<CR>
+"macro for searching through whole project for the visually selected text
+vnoremap ga y:vim /<C-R>"/ **/*.c<CR>
+
+
