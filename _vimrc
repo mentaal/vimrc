@@ -78,6 +78,9 @@ let python_highlight_all = 1
 "Hexmode
 Plugin 'fidian/hexmode'
 
+"SystemVerilog syntax plugin
+Plugin 'cazador481/vim-systemverilog'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -169,7 +172,7 @@ set wildmode=list:longest,full " command <Tab> completion, list matches, then lo
 set number
 
 set shiftwidth=4
-"set textwidth=76
+set textwidth=0
 " Highlight matched paranthesis
 "let loaded_matchparen = 1
 
@@ -414,12 +417,6 @@ colo leo
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
-"jump to beginning of function but with the curly braces not necessarily
-"starting in first column
-":map [[ ?{<CR>w99[{
-":map ][ /}<CR>b99]}
-":map ]] j0[[%/{<CR>
-":map [] k$][%?}<CR>
 
 "search for the visually selected text
 vnoremap g/ y/<C-R>"<CR>
@@ -427,3 +424,11 @@ vnoremap g/ y/<C-R>"<CR>
 vnoremap ga y:vim /<C-R>"/ **/*.c<CR>
 
 
+
+"allow ctrlp to follow symlinks"
+let g:ctrlp_follow_symlinks=1
+"default to mru list 
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+"wrap around for searches
+:set wrapscan
