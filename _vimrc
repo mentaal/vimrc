@@ -27,7 +27,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'kien/ctrlp.vim'
 
 "Syntastic
-Plugin 'scrooloose/syntastic'
+"this could be causing my vim to crash
+"Plugin 'scrooloose/syntastic'
 
 "supertab
 Plugin 'ervandew/supertab'
@@ -122,7 +123,7 @@ syntax on
 filetype plugin indent on
 "colorscheme Benokai
 "set background=light
-"colorscheme solarized
+colorscheme solarized
 "let g:solarized_italic=0
 
 
@@ -412,7 +413,7 @@ else
     nmap <leader>te :silent !gnome-terminal &<cr>
 endif
 
-colo leo
+"colo leo
 "turn off annoying bell and visual flash on error
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -428,7 +429,10 @@ vnoremap ga y:vim /<C-R>"/ **/*.c<CR>
 "allow ctrlp to follow symlinks"
 let g:ctrlp_follow_symlinks=1
 "default to mru list 
-let g:ctrlp_cmd = 'CtrlPMRU'
+"let g:ctrlp_cmd = 'CtrlPMRU'
 
 "wrap around for searches
 :set wrapscan
+
+"sort a csv based on the last column
+"sort /^.*,/
