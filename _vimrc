@@ -24,7 +24,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 
 "ctrlp
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 "Syntastic
 "this could be causing my vim to crash
@@ -36,36 +36,47 @@ Plugin 'ervandew/supertab'
 "taglist
 Plugin 'vim-scripts/taglist.vim'
 
+"use this for finding calling function instead
+function! Csc()
+  cscope find c <cword>
+  copen
+endfunction
+command! Csc call Csc()
+nnoremap <leader>fc :Csc<CR>
+nnoremap <leader>co :!cscope -Rb<CR>:cs add cscope.out<CR>
 "cscope
-Plugin 'vim-scripts/cscope.vim'
+"Plugin 'vim-scripts/cscope.vim'
 "Below is the minimum key mappings.
+"    nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
+"    nnoremap <leader>l :call ToggleLocationList()<CR>
+"
+""Some optional key mappings to search directly.
+"
+"    " s: Find this C symbol
+"    nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
+"    " g: Find this definition
+"    nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
+"    " d: Find functions called by this function
+"    nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
+"    " c: Find functions calling this function
+"    nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
+"    " t: Find this text string
+"    nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
+"    " e: Find this egrep pattern
+"    nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
+"    " f: Find this file
+"    nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
+"    " i: Find files #including this file
+"    nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
+
+"nerdcommenter
+Plugin 'scrooloose/nerdcommenter'
 
 "get python syntax highlighting
 Plugin 'hdima/python-syntax'
 "use all features of the above plugin
 let python_highlight_all = 1
 
-    nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
-    nnoremap <leader>l :call ToggleLocationList()<CR>
-
-"Some optional key mappings to search directly.
-
-    " s: Find this C symbol
-    nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
-    " g: Find this definition
-    nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
-    " d: Find functions called by this function
-    nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
-    " c: Find functions calling this function
-    nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
-    " t: Find this text string
-    nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
-    " e: Find this egrep pattern
-    nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
-    " f: Find this file
-    nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
-    " i: Find files #including this file
-    nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
 
 "Python Mode
 "Plugin 'klen/python-mode'
@@ -78,6 +89,7 @@ let python_highlight_all = 1
 
 "Hexmode
 Plugin 'fidian/hexmode'
+"can switch with - :Hexmode
 
 "SystemVerilog syntax plugin
 Plugin 'cazador481/vim-systemverilog'
