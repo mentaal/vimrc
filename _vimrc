@@ -43,7 +43,7 @@ function! Csc()
 endfunction
 command! Csc call Csc()
 nnoremap <leader>fc :Csc<CR>
-nnoremap <leader>co :!cscope -Rb<CR>:cs add cscope.out<CR>
+nnoremap <leader>co :cs kill 0<CR>:silent !del cscope.out<CR>:silent !cscope -Rb<CR>:cs add cscope.out<CR>
 "cscope
 "Plugin 'vim-scripts/cscope.vim'
 "Below is the minimum key mappings.
@@ -448,3 +448,16 @@ let g:ctrlp_follow_symlinks=1
 
 "sort a csv based on the last column
 "sort /^.*,/
+
+"mban ctrlp ignore
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]doc$',
+  \ 'file': '\v\.(cout)$'
+  \ }
+
+let g:ctrlp_show_hidden = 1
