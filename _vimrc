@@ -26,6 +26,9 @@ Plugin 'flazz/vim-colorschemes'
 "ctrlp
 Plugin 'ctrlpvim/ctrlp.vim'
 
+"flake8 - pep8 synctax formatting for python
+Plugin 'nvie/vim-flake8'
+
 "Syntastic
 "this could be causing my vim to crash
 "Plugin 'scrooloose/syntastic'
@@ -455,9 +458,37 @@ let g:ctrlp_follow_symlinks=1
 "  \ 'file': '\v\.(exe|so|dll)$',
 "  \ 'link': 'some_bad_symbolic_links',
 "  \ }
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]doc$',
-  \ 'file': '\v\.(cout)$'
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]doc$',
+"  \ 'file': '\v\.(cout)$'
+"  \ }
+
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': 'find %s -type f'
   \ }
 
 let g:ctrlp_show_hidden = 1
+
+"set textwidth = 78
+set textwidth=80
+set colorcolumn=80
+
+"command to reformat lines to textwidth
+":g/^/norm gqq
+nmap <leader>s :g/^/norm gqq <CR>
+
+
+"handle fileencodings
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
