@@ -481,6 +481,7 @@ set colorcolumn=80
 ":g/^/norm gqq
 nmap <leader>s :g/^/norm gqq <CR>
 
+nmap ,e :Ex<cr>
 
 "handle fileencodings
 if has("multi_byte")
