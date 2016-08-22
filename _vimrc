@@ -42,7 +42,7 @@ Plugin 'vim-scripts/taglist.vim'
 "use this for finding calling function instead
 function! Csc()
   cscope find c <cword>
-  copen
+  "copen
 endfunction
 command! Csc call Csc()
 nnoremap <leader>fc :Csc<CR>
@@ -452,24 +452,22 @@ let g:ctrlp_follow_symlinks=1
 "sort a csv based on the last column
 "sort /^.*,/
 
-"mban ctrlp ignore
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"  \ 'file': '\v\.(exe|so|dll)$',
-"  \ 'link': 'some_bad_symbolic_links',
-"  \ }
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]doc$',
-"  \ 'file': '\v\.(cout)$'
-"  \ }
+"works
+"\ 'dir':  '\v([\/]\.(git|hg|svn)$|[\/]doc[\/](html|latex)$)',
 
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v([\/]\.(git|hg|svn)$|[\/](html|latex)$)',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.o$\|\.pbi$\|\.dep$\|\.html$',
+    \  }
+
+
+"let g:ctrlp_user_command = {
+"  \ 'types': {
+"    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+"    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"    \ },
+"  \ 'fallback': 'find %s -type f'
+"  \ }
 
 let g:ctrlp_show_hidden = 1
 
