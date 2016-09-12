@@ -42,11 +42,11 @@ Plugin 'vim-scripts/taglist.vim'
 "use this for finding calling function instead
 function! Csc()
   cscope find c <cword>
-  "copen
+  copen
 endfunction
 command! Csc call Csc()
 nnoremap <leader>fc :Csc<CR>
-nnoremap <leader>co :cs kill 0<CR>:silent !del cscope.out<CR>:silent !cscope -Rb<CR>:cs add cscope.out<CR>
+nnoremap <leader>cu :cs kill 0<CR>:silent !del cscope.out<CR>:silent !cscope -Rb<CR>:cs add cscope.out<CR>
 "cscope
 "Plugin 'vim-scripts/cscope.vim'
 "Below is the minimum key mappings.
@@ -373,6 +373,7 @@ endfunction
 set tags=./tags;/
 nmap ,tc :silent !ctags -R --languages=c,c++<CR>
 nmap ,tp :silent !ctags -R --languages=python<CR>
+nmap ,ts :silent !ctags -R --languages=c,c++,SystemVerilog<CR>
 
 nmap ,, :nohls<CR>
 
