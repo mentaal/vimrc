@@ -46,7 +46,7 @@ function! Csc()
 endfunction
 command! Csc call Csc()
 nnoremap <leader>fc :Csc<CR>
-nnoremap <leader>co :cs kill 0<CR>:silent !del cscope.out<CR>:silent !cscope -Rb<CR>:cs add cscope.out<CR>
+nnoremap <leader>cu :cs kill 0<CR>:silent !del cscope.out<CR>:silent !cscope -Rb<CR>:cs add cscope.out<CR>
 "cscope
 "Plugin 'vim-scripts/cscope.vim'
 "Below is the minimum key mappings.
@@ -373,6 +373,7 @@ endfunction
 set tags=./tags;/
 nmap ,tc :silent !ctags -R --languages=c,c++<CR>
 nmap ,tp :silent !ctags -R --languages=python<CR>
+nmap ,ts :silent !ctags -R --languages=c,c++,SystemVerilog<CR>
 
 nmap ,, :nohls<CR>
 
@@ -454,22 +455,23 @@ let g:ctrlp_follow_symlinks=1
 
 "mban ctrlp ignore
 "let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'dir':  '\v[\/]\.(svn|git|hg|)$',
 "  \ 'file': '\v\.(exe|so|dll)$',
 "  \ 'link': 'some_bad_symbolic_links',
 "  \ }
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]doc$',
-"  \ 'file': '\v\.(cout)$'
-"  \ }
+"
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
+"let g:ctrlp_user_command = {
+"  \ 'types': {
+"    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+"    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"    \ 3: ['.svn', 'cd %s && svn list -R'],
+"    \ },
+"  \ 'fallback': 'find %s -type f'
+"  \ }
 
 let g:ctrlp_show_hidden = 1
 
