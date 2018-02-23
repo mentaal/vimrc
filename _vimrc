@@ -188,7 +188,6 @@ set wildmode=list:longest,full " command <Tab> completion, list matches, then lo
 set number
 
 set shiftwidth=4
-set textwidth=0
 " Highlight matched paranthesis
 "let loaded_matchparen = 1
 
