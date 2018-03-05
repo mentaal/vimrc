@@ -3,6 +3,18 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 let &shellslash=0
 au FileType vundle setlocal noshellslash
+
+"handle fileencodings
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
 " set the runtime path to include Vundle and initialize
 if has("gui_win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
@@ -38,6 +50,9 @@ Plugin 'ervandew/supertab'
 
 "taglist
 Plugin 'vim-scripts/taglist.vim'
+
+"You complete me
+Plugin 'Valloric/YouCompleteMe'
 
 "use this for finding calling function instead
 function! Csc()
@@ -481,13 +496,7 @@ nmap <leader>s :g/^/norm gqq <CR>
 
 nmap ,e :Ex<cr>
 
-"handle fileencodings
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
+
+"seed ycm with identifiers for syntax - see
+"https://github.com/Valloric/YouCompleteMe/issues/1348
+let g:ycm_seed_identifiers_with_syntax = 0
