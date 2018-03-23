@@ -16,7 +16,7 @@ if has("multi_byte")
 endif
 
 " set the runtime path to include Vundle and initialize
-if has("gui_win32")
+if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
     "let path='~/vimfiles/bundle'
     call vundle#rc('$HOME/vimfiles/bundle/')
@@ -184,7 +184,6 @@ set hlsearch
 set bs=2
 "set columns=80
 set background=dark
-set tabstop=4
 "set wrapmargin=8
 "also look at textwidth
 set nobk
@@ -227,12 +226,10 @@ set guioptions-=m
 ""Automatically reload .vimrc when saved
 "au BufWritePost ~/.vimrc :source ~/.vimrc
 ""make it easy to reaload vimrc
-if has("gui_running")
-  if has("gui_gtk2")
-    nmap ,l :source ~/.vimrc<cr>
-  elseif has("gui_win32")
+if has("win32")
     nmap ,l :source ~/_vimrc<cr>
-  endif
+else
+    nmap ,l :source ~/.vimrc<cr>
 endif
 
 
@@ -270,12 +267,10 @@ set viminfo='100,f1
 
 nmap ,r :let b:match_words =  '\<task\>:\<endtask\>,' .  '\<interface\>:\<endinterface\>,' . '\<function\>:\<endfunction\>,' .  '\<begin\>:\<end\>,' . '\<class\>:\<endclass\>,' .  '\<package\>:\<endpackage\>,' . '\<program\>:\<endprogram\>,' .  '\<do\>:\<while\>,' . '\<module\>:\<endmodule\>,' . '\<case\>:\<endcase\>,' . '\<ifdef\>:\<endif\>,' . '\<generate\>:\<endgenerate\>'
 
-if has("gui_running")
-  if has("gui_gtk2")
-    nmap ,v :tabe ~/.vimrc <cr>
-  elseif has("gui_win32")
+if has("win32")
     nmap ,v :tabe ~/_vimrc <cr>
-  endif
+else
+    nmap ,v :tabe ~/.vimrc <cr>
 endif
 
 set wrap
@@ -497,6 +492,12 @@ nmap <leader>s :g/^/norm gqq <CR>
 nmap ,e :Ex<cr>
 
 
+set tabstop=4
 "seed ycm with identifiers for syntax - see
 "https://github.com/Valloric/YouCompleteMe/issues/1348
 let g:ycm_seed_identifiers_with_syntax = 0
+let g:loaded_youcompleteme = 1
+
+"highlight nonascii characters
+syntax match nonascii "[^\x00-\x7F]"
+highlight nonascii guibg=Red ctermbg=2
