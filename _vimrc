@@ -5,15 +5,15 @@ let &shellslash=0
 au FileType vundle setlocal noshellslash
 
 "handle fileencodings
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
+"if has("multi_byte")
+"  if &termencoding == ""
+"    let &termencoding = &encoding
+"  endif
+"  set encoding=utf-8
+"  setglobal fileencoding=utf-8
+"  "setglobal bomb
+"  set fileencodings=ucs-bom,utf-8,latin1
+"endif
 
 " set the runtime path to include Vundle and initialize
 if has("win32")
@@ -39,7 +39,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 "flake8 - pep8 synctax formatting for python
-Plugin 'nvie/vim-flake8'
+"Plugin 'nvie/vim-flake8'
 
 "Syntastic
 "this could be causing my vim to crash
@@ -52,7 +52,12 @@ Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/taglist.vim'
 
 "You complete me
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
+"
+"seed ycm with identifiers for syntax - see
+"https://github.com/Valloric/YouCompleteMe/issues/1348
+"let g:ycm_seed_identifiers_with_syntax = 0
+"let g:loaded_youcompleteme = 1
 
 "use this for finding calling function instead
 function! Csc()
@@ -110,24 +115,8 @@ Plugin 'fidian/hexmode'
 "can switch with - :Hexmode
 
 "SystemVerilog syntax plugin
-Plugin 'cazador481/vim-systemverilog'
+"Plugin 'cazador481/vim-systemverilog'
 
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -145,10 +134,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-
-
-"use pathothen
-"execute pathogen#infect()
 syntax on
 filetype plugin indent on
 "colorscheme Benokai
@@ -355,15 +340,8 @@ if has("gui_running")
   endif
 endif
 nmap <leader>p :let @+ = expand("%:p:h")<cr>
+nmap ,p :let @+ = expand("%:p")<cr>
 nmap <leader>o :lcd %:p:h<cr>
-
-"easy search and replace of selected text
-vnoremap <C-r> <Esc>:%s/<C-r>*//gc<left><left><left>
-
-
-"easy search and replace of selected text
-vnoremap <C-r> <Esc>:%s/<C-r>*//gc<left><left><left>
-
 
 nnoremap <silent> <Leader>df :call DiffToggle()<CR>
 
@@ -485,18 +463,10 @@ let g:ctrlp_show_hidden = 1
 set textwidth=80
 set colorcolumn=80
 
-"command to reformat lines to textwidth
-":g/^/norm gqq
-nmap <leader>s :g/^/norm gqq <CR>
-
 nmap ,e :Ex<cr>
 
 
 set tabstop=4
-"seed ycm with identifiers for syntax - see
-"https://github.com/Valloric/YouCompleteMe/issues/1348
-let g:ycm_seed_identifiers_with_syntax = 0
-let g:loaded_youcompleteme = 1
 
 "highlight nonascii characters
 syntax match nonascii "[^\x00-\x7F]"
