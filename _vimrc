@@ -32,6 +32,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+" Javascript syntax highlighting
+Plugin 'pangloss/vim-javascript'
+
 "get colorschemes
 Plugin 'flazz/vim-colorschemes'
 
@@ -138,7 +141,8 @@ syntax on
 filetype plugin indent on
 "colorscheme Benokai
 "set background=light
-colorscheme solarized
+colorscheme gruvbox
+"colorscheme solarized
 "let g:solarized_italic=0
 
 
@@ -445,7 +449,7 @@ let g:ctrlp_follow_symlinks=1
 
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v([\/]\.(git|hg|svn)$|[\/](html|latex)$)',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.o$\|\.pbi$\|\.dep$\|\.html$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.o$\|\.pbi$\|\.dep$',
     \  }
 
 
