@@ -469,9 +469,19 @@ set colorcolumn=80
 
 nmap ,e :Ex<cr>
 
+"remap * to highlight searches without jumping:
+"https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump
+"nnoremap * :keepjumps normal! mi*`i<CR>
+"try alternative:
+nnoremap <silent> <Leader>* :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 set tabstop=4
 
 "highlight nonascii characters
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii guibg=Red ctermbg=2
+
+:inoremap \fn <C-R>=expand("%:t")<CR>
+
+
+set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\.pytest_cache\\*  " Windows ('noshellslash')
