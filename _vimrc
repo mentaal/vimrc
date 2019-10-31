@@ -54,6 +54,9 @@ Plugin 'ervandew/supertab'
 "taglist
 Plugin 'vim-scripts/taglist.vim'
 
+"star-search
+Plugin 'vim-scripts/star-search'
+
 "You complete me
 "Plugin 'Valloric/YouCompleteMe'
 "
@@ -473,7 +476,7 @@ nmap ,e :Ex<cr>
 "https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump
 "nnoremap * :keepjumps normal! mi*`i<CR>
 "try alternative:
-nnoremap <silent> <Leader>* :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+"nnoremap <silent> <Leader>* :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 set tabstop=4
 
