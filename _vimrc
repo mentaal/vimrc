@@ -41,8 +41,17 @@ Plugin 'flazz/vim-colorschemes'
 "ctrlp
 Plugin 'ctrlpvim/ctrlp.vim'
 
+"Replace With Register
+Plugin 'inkarkat/vim-ReplaceWithRegister'
+
 "flake8 - pep8 synctax formatting for python
 "Plugin 'nvie/vim-flake8'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'tpope/vim-commentary'
+
+Plugin 'tpope/vim-repeat'
 
 "Syntastic
 "this could be causing my vim to crash
@@ -56,6 +65,12 @@ Plugin 'vim-scripts/taglist.vim'
 
 "star-search
 Plugin 'vim-scripts/star-search'
+
+"Required for textobj-line
+Plugin 'kana/vim-textobj-user'
+
+"inner line text object
+Plugin 'kana/vim-textobj-line'
 
 "You complete me
 "Plugin 'Valloric/YouCompleteMe'
@@ -180,6 +195,7 @@ set background=dark
 "also look at textwidth
 set nobk
 set ruler
+set relativenumber
 
 set list listchars=tab:\|\ ,trail:.
 "set nolist 
@@ -348,6 +364,7 @@ if has("gui_running")
 endif
 nmap <leader>p :let @+ = expand("%:p:h")<cr>
 nmap ,p :let @+ = expand("%:p")<cr>
+nmap ,f :let @+ = expand("%:t:r")<cr>
 nmap <leader>o :lcd %:p:h<cr>
 
 nnoremap <silent> <Leader>df :call DiffToggle()<CR>
@@ -365,9 +382,13 @@ endfunction
 ""make tags work properly
 "set tags=tags;/
 set tags=./tags;/
-nmap ,tc :silent !ctags -R --languages=c,c++<CR>
-nmap ,tp :silent !ctags -R --languages=python<CR>
-nmap ,ts :silent !ctags -R --languages=c,c++,SystemVerilog<CR>
+"tags for embedded wil
+nmap ,w :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.90.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
+nmap ,tc :silent !start cmd /c "ctags -R --languages=c,c++ --c-kinds=+p & pause"<CR>
+nmap ,tp :silent !start cmd /c "ctags -R --languages=python & pause"<CR>
+nmap ,ts :silent !start cmd /c "ctags -R --languages=c,c++,SystemVerilog & pause"<CR>
+nmap ,ts :silent !start cmd /c "ctags -R --languages=c,c++,SystemVerilog & pause"<CR>
+nmap ,tw :silent !start cmd /k<CR>
 
 nmap ,, :nohls<CR>
 
@@ -488,3 +509,33 @@ highlight nonascii guibg=Red ctermbg=2
 
 
 set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\.pytest_cache\\*  " Windows ('noshellslash')
+
+
+" See  https://thoughtbot.com/blog/faster-grepping-in-vim
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  "let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" bind \ (backward slash) to grep shortcut
+"command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+nnoremap <Leader>f :Ag<SPACE>
+
+"gvim fullscreen
+"https://github.com/movsb/gvim_fullscreen
+" toggle fullscreen mode by pressing F11
+noremap <f11> <esc>:call libcallnr('gvim_fullscreen.dll', 'ToggleFullscreen', 0)<cr>
+" toggle window transparency to 247 or 180 by pressing F12
+noremap <f12> <esc>:call libcallnr('gvim_fullscreen.dll', 'ToggleTransparency', "255,180")<cr>
