@@ -79,6 +79,8 @@ Plugin 'kana/vim-textobj-line'
 "https://github.com/Valloric/YouCompleteMe/issues/1348
 "let g:ycm_seed_identifiers_with_syntax = 0
 "let g:loaded_youcompleteme = 1
+"
+
 
 "use this for finding calling function instead
 function! Csc()
@@ -183,7 +185,7 @@ se cursorline      " highlight current line
 "endif
  
 set shortmess+=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
-set scrolloff=3         " minimum lines to keep above and below cursor
+"set scrolloff=3         " minimum lines to keep above and below cursor
 
 set autoindent
 set incsearch "start search immediately
@@ -383,12 +385,17 @@ endfunction
 "set tags=tags;/
 set tags=./tags;/
 "tags for embedded wil
-nmap ,w :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.90.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
-nmap ,tc :silent !start cmd /c "ctags -R --languages=c,c++ --c-kinds=+p & pause"<CR>
-nmap ,tp :silent !start cmd /c "ctags -R --languages=python & pause"<CR>
-nmap ,ts :silent !start cmd /c "ctags -R --languages=c,c++,SystemVerilog & pause"<CR>
-nmap ,ts :silent !start cmd /c "ctags -R --languages=c,c++,SystemVerilog & pause"<CR>
-nmap ,tw :silent !start cmd /k<CR>
+nmap ,tc :silent! !start cmd /c ctags -R --languages=c,c++ --c-kinds=+p<CR>
+nmap ,tp :silent! !start cmd /c ctags -R --languages=python<CR>
+nmap ,ts :silent! !start cmd /c ctags -R --languages=c,c++,SystemVerilog<CR>
+nmap ,ts :silent! !start cmd /c ctags -R --languages=c,c++,SystemVerilog<CR>
+nmap ,tt :silent! !start cmd /k cd %:p:h<CR>
+nmap ,tw :silent! !start explorer %:p:h<CR>
+nmap ,tap :let &tags ='c:/projects/apex/apex_a-sample/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/AnalogDevices/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/tags'
+nmap ,tae :let &tags ='c:/projects/apex/apex_a-sample/tags,c:/Users/gkuhn/IAR-CMSIS-Packs/ARM/CMSIS/5.7.0/tags,C:/Users/gkuhn/IAR-CMSIS-Packs/tags'
+"nmap ,tab :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,C:\Analog\ Devices\AnalogDevices.WBMS-Interface-Library.0.92.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
+nmap ,tab :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.100.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
+nmap ,tac :let &tags ='c:\projects\emg\wbms_can_gw\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.100.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
 
 nmap ,, :nohls<CR>
 
@@ -473,7 +480,7 @@ let g:ctrlp_follow_symlinks=1
 
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v([\/]\.(git|hg|svn)$|[\/](html|latex)$)',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.o$\|\.pbi$\|\.dep$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.o$\|\.pbi$\|\.dep$\|\.html$',
     \  }
 
 
@@ -515,7 +522,7 @@ set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\.pytest_cache\\*  " Windows (
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  "set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -539,3 +546,13 @@ nnoremap <Leader>f :Ag<SPACE>
 noremap <f11> <esc>:call libcallnr('gvim_fullscreen.dll', 'ToggleFullscreen', 0)<cr>
 " toggle window transparency to 247 or 180 by pressing F12
 noremap <f12> <esc>:call libcallnr('gvim_fullscreen.dll', 'ToggleTransparency', "255,180")<cr>
+
+" attempt to workaround netrw not closing buffers 
+" https://github.com/tpope/vim-vinegar/issues/13#issuecomment-489440040
+let g:netrw_fastbrowse = 0
+
+
+
+
+"nmap ,ff = :enew|pu=system('python c:\projects\find_stuff\find_stuff.py .searchpaths' . <cword> -e c -s test')
+nmap ,ff = :lgete system("python c:/projects/find_stuff/find_stuff.py .searchpaths " . expand("<cword>") . " -e c -s test")<cr>:lopen
