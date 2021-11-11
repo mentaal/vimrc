@@ -3,6 +3,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 let &shellslash=0
 au FileType vundle setlocal noshellslash
+set encoding=utf-8
 
 "handle fileencodings
 "if has("multi_byte")
@@ -71,6 +72,9 @@ Plugin 'kana/vim-textobj-user'
 
 "inner line text object
 Plugin 'kana/vim-textobj-line'
+
+"inner line text object
+Plugin 'junegunn/fzf'
 
 "You complete me
 "Plugin 'Valloric/YouCompleteMe'
@@ -199,7 +203,9 @@ set nobk
 set ruler
 set relativenumber
 
-set list listchars=tab:\|\ ,trail:.
+"set list listchars=tab:\|\ ,trail:.,precedes:<,extends:>
+set list
+set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»
 "set nolist 
 
 " I like highlighting strings inside C comments
@@ -364,11 +370,11 @@ if has("gui_running")
     nmap <leader>r :!chmod -w %<cr>
   endif
 endif
-nmap <leader>p :let @+ = expand("%:p:h")<cr>
-nmap ,p :let @+ = expand("%:p")<cr>
-nmap ,f :let @+ = expand("%:t:r")<cr>
+nmap ,pf :let @+ = expand("%:p")<cr>
+nmap ,ph :let @+ = expand("%:p:h")<cr>
+nmap ,pt :let @+ = expand("%:t")<cr>
+nmap ,pn :let @+ = expand("%:t:r")<cr>
 nmap <leader>o :lcd %:p:h<cr>
-
 nnoremap <silent> <Leader>df :call DiffToggle()<CR>
 
 "below used for case insensitive buffer expansions
@@ -385,17 +391,19 @@ endfunction
 "set tags=tags;/
 set tags=./tags;/
 "tags for embedded wil
+nmap ,ta :silent! !start cmd /c ctags -R --languages=c,c++ --c-kinds=+p -D "ADI_APOLLO_PACKED(d)=d"<CR>
 nmap ,tc :silent! !start cmd /c ctags -R --languages=c,c++ --c-kinds=+p<CR>
 nmap ,tp :silent! !start cmd /c ctags -R --languages=python<CR>
 nmap ,ts :silent! !start cmd /c ctags -R --languages=c,c++,SystemVerilog<CR>
 nmap ,ts :silent! !start cmd /c ctags -R --languages=c,c++,SystemVerilog<CR>
 nmap ,tt :silent! !start cmd /k cd %:p:h<CR>
 nmap ,tw :silent! !start explorer %:p:h<CR>
-nmap ,tap :let &tags ='c:/projects/apex/apex_a-sample/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/AnalogDevices/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/tags'
+nmap ,tap :let &tags ='c:/projects/apex/apex_a-sample/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/AnalogDevices/tags,C:/Users/gkuhn/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/tags'
 nmap ,tae :let &tags ='c:/projects/apex/apex_a-sample/tags,c:/Users/gkuhn/IAR-CMSIS-Packs/ARM/CMSIS/5.7.0/tags,C:/Users/gkuhn/IAR-CMSIS-Packs/tags'
 "nmap ,tab :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,C:\Analog\ Devices\AnalogDevices.WBMS-Interface-Library.0.92.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
 nmap ,tab :let &tags ='c:\projects\emg\wbms-embedded-wil-platform\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.100.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
 nmap ,tac :let &tags ='c:\projects\emg\wbms_can_gw\tags,c:\Analog\ Devices\WBMS_Interface_Lib-Rel0.100.0\WIL\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Atmel\SAMV71_DFP\2.4.182\samv71b\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS-Driver\2.4.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\tags,c:\Users\gkuhn\AppData\Local\Arm\Packs\Keil\SAM-ESV7_SFP\2.4.4\tags'
+nmap ,taa :let &tags ='c:\projects\apollo\apollo_sw_dev\tags,c:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\CMSIS\tags,c:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\tags'
 
 nmap ,, :nohls<CR>
 
@@ -522,7 +530,8 @@ set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\.pytest_cache\\*  " Windows (
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
-  "set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat^=%f:%l:%c:%m
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -534,6 +543,7 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap ,k :silent! grep! "\b<C-R><C-W>\b" . ' -G \.\(c<bar>h\)$'<CR>:cw<CR>:redraw!<CR>
 
 " bind \ (backward slash) to grep shortcut
 "command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
@@ -554,5 +564,9 @@ let g:netrw_fastbrowse = 0
 
 
 
-"nmap ,ff = :enew|pu=system('python c:\projects\find_stuff\find_stuff.py .searchpaths' . <cword> -e c -s test')
-nmap ,ff = :lgete system("python c:/projects/find_stuff/find_stuff.py .searchpaths " . expand("<cword>") . " -e c -s test")<cr>:lopen
+"nmap ,ff  :enew|pu=system('python c:\projects\find_stuff\find_stuff.py .searchpaths' . <cword> -e c -s test')
+nmap ,ff :lgete system("python c:/projects/find_stuff/find_stuff.py .searchpaths " . expand("<cword>") . " -e c -s test")
+
+
+"search on selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
